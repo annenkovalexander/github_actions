@@ -38,6 +38,10 @@ jobs:
           echo test, and deploy your project.
   deploy:  # Создаётся одна задача deploy, имя может быть любым
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     steps: # Перечень шагов, команд, которые будут выполнены в этом блоке
       - name: Checkout # Шаг для получения доступа к репозиторию
         uses: actions/checkout@v4
