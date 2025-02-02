@@ -36,3 +36,23 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  deploy:  # Создаётся одна задача deploy, имя может быть любым
+    runs-on: ubuntu-latest
+    steps: # Перечень шагов, команд, которые будут выполнены в этом блоке
+      - name: Checkout # Шаг для получения доступа к репозиторию
+        uses: actions/checkout@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4 # Используется готовый actions
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
